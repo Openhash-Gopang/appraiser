@@ -639,8 +639,8 @@ test('화면 테마: 다섯 페이지가 themes.css·theme.js를 불러오고, �
   assert.match(css, /\.acts \.btn\.sm[^}]*min-height: 34px[^}]*box-shadow: none/, '목록의 열기·삭제 단추는 작고 부드럽게');
   assert.match(css, /html\[data-theme="d"\] \.navi-ico \{[^}]*navi-icon\.png/, 'D안 왼쪽 위는 나비 아이콘');
   assert.match(css, /html\[data-theme="d"\] \.nav a \{[^}]*font-size: 18px/, 'D안 왼쪽 메뉴는 본문 글자 크기');
-  assert.match(css, /html\[data-theme="d"\] \.head \{[^}]*width: 72px/, 'D안 레일은 아이콘 폭으로 닫혀 있다');
-  assert.match(css, /html\[data-theme="d"\] \.head:hover[^{]*\{[^}]*width: 224px/, '마우스를 올리면 메뉴 패널이 펼쳐진다');
+  assert.match(css, /html\[data-theme="d"\] \.head \{[^}]*width: 65px/, 'D안 레일은 아이콘 폭으로 닫혀 있다');
+  assert.match(css, /html\[data-theme="d"\] \.head:hover[^{]*\{[^}]*width: 202px/, '마우스를 올리면 메뉴 패널이 펼쳐진다');
   assert.match(css, /\.nav a::before \{[^}]*mask/, '메뉴는 아이콘으로 표시');
   assert.ok(readFileSync(join(ROOT, 'assets/navi-icon.png')).subarray(1, 4).toString() === 'PNG');
   assert.match(css, /\.ask > \.btn\[type="submit"\][^}]*position: absolute; right: 8px/, '초안 작성 단추는 입력 칸 오른쪽 끝의 작은 아이콘');
