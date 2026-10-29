@@ -201,9 +201,14 @@ html[data-theme] .acts .btn.sm.line:hover { background: var(--blue-bg); }
   background-size: 32px 32px;
   -webkit-mask-image: radial-gradient(ellipse 85% 75% at 55% 35%, #000 25%, transparent 100%); mask-image: radial-gradient(ellipse 85% 75% at 55% 35%, #000 25%, transparent 100%); }
 :root[data-theme="d"] body::after { content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(900px 500px at 65% -5%, #fff 0, rgba(255,255,255,0) 70%), #eef3fb; }
-:root[data-theme="d"] .head, :root[data-theme="d"] .promo-tab, :root[data-theme="d"] .chat-panel { background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 8px 24px rgba(var(--sh), .10), 0 1px 3px rgba(var(--sh), .12); }
-:root[data-theme="d"] .head { border: 0; }
-:root[data-theme="d"] .head:hover, :root[data-theme="d"] .head:focus-within { background: rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--e4); }
+:root[data-theme="d"] .promo-tab, :root[data-theme="d"] .chat-panel { background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 8px 24px rgba(var(--sh), .10), 0 1px 3px rgba(var(--sh), .12); }
+/* 머리말(왼쪽 레일)의 유리 효과는 .head 자신이 아니라 ::before 에 건다.
+   backdrop-filter 가 걸린 요소는 그 안의 position:fixed 자손(.head-right: 로그인 배지·감정 시뮬레이션 링크)의 기준 상자가 되어,
+   오른쪽 위에 있어야 할 메뉴가 72px 레일 안으로 들어와 겹치기 때문이다. */
+:root[data-theme="d"] .head { border: 0; background: transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 8px 24px rgba(var(--sh), .10), 0 1px 3px rgba(var(--sh), .12); }
+:root[data-theme="d"] .head::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); transition: background .22s var(--ease); }
+:root[data-theme="d"] .head:hover, :root[data-theme="d"] .head:focus-within { box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--e4); }
+:root[data-theme="d"] .head:hover::before, :root[data-theme="d"] .head:focus-within::before { background: rgba(255,255,255,.78); }
 :root[data-theme="d"] .promo-tab { color: var(--navy); border-color: rgba(11,87,208,.18); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--e3); }
 :root[data-theme="d"] .promo-tab:hover { background: rgba(255,255,255,.8); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--e4); }
 :root[data-theme="d"] .chat-panel { border: 0; border-radius: 20px; box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--e5); }
@@ -229,7 +234,8 @@ html[data-theme] .acts .btn.sm.line:hover { background: var(--blue-bg); }
   :root[data-theme="d"] *, :root[data-theme="d"] *::before, :root[data-theme="d"] *::after { animation: none !important; transition: none !important; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  :root[data-theme="d"] .head, :root[data-theme="d"] .head:hover, :root[data-theme="d"] .head:focus-within, :root[data-theme="d"] .promo-tab, :root[data-theme="d"] .chat-panel { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :root[data-theme="d"] .promo-tab, :root[data-theme="d"] .chat-panel { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :root[data-theme="d"] .head::before, :root[data-theme="d"] .head:hover::before, :root[data-theme="d"] .head:focus-within::before { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 @media print { .head-btn { display: none !important; } html[data-theme] body { padding-left: 0; background: #fff; } }
