@@ -157,7 +157,7 @@ test('특징 패널: 홈·서류 목록에만 있고, 일곱 줄과 "관제탑 �
     const lis = [...el.querySelectorAll('ol > li')].map((l) => { const c = l.cloneNode(true); const t = c.querySelector('.tower-tip'); if (t) t.remove(); return c.textContent; });
     assert.deepEqual(lis, PROMO_LINES);
     assert.match(el.querySelector('.promo-note').textContent, /제출 결과 예상은 참고용이며 법적 효력이 없습니다/);
-    assert.ok(w.document.getElementById('promoTab'), '옆면 손잡이');
+    assert.ok(w.document.querySelector('.nav > #promoTab'), '좌측 메뉴 안의 단추');
     assert.ok(el.querySelector('#towerBtn svg'), '화살표');
   }
   for (const p of ['write.html', '404.html']) { const d = load(p).window.document; assert.equal(d.getElementById('promo'), null, p); assert.equal(d.getElementById('promoTab'), null, p); }
@@ -193,7 +193,7 @@ test('특징 패널: 접근성(제목 연결·단추)과 인쇄 숨김', () => {
   const d = load('index.html').window.document, el = d.getElementById('promo');
   assert.equal(el.getAttribute('aria-labelledby'), 'promoH');
   for (const id of ['promoTab', 'promoX', 'promoClose', 'towerBtn']) assert.equal(d.getElementById(id).tagName, 'BUTTON', id);
-  assert.match(read('assets/law.css'), /@media print \{ \.promo, \.promo-tab \{ display: none/);
+  assert.match(read('assets/law.css'), /@media print \{ \.promo, \.nav-btn \{ display: none/);
 });
 
 // ── 발급 서류: 초안이 아니라 발급 안내로 시작한다 ──
@@ -542,8 +542,9 @@ test('홈: 대표자 성명·주민등록번호·성 명 칸도 의뢰인 PDV �
 
 test('홈: 사용법 탭이 특징 위에 있고, 누르면 사용법 패널이 열리며 바깥을 누르면 닫힌다', () => {
   const w = load('index.html').window, d = w.document, tab = d.getElementById('howTab'), el = d.getElementById('howPanel');
-  const tabs = Array.from(d.querySelectorAll('.side-tabs > *'), (x) => x.id);
-  assert.deepEqual(tabs, ['howTab', 'promoTab']);
+  const tabs = Array.from(d.querySelectorAll('.nav > button'), (x) => x.id);
+  assert.deepEqual(tabs, ['howTab', 'promoTab'], '사용법·특징 단추는 좌측 메뉴 안에 이 순서로 있다');
+  assert.equal(d.querySelector('.side-tabs'), null, '우측 고정 탭은 없다');
   assert.ok(!el.classList.contains('open'));
   tab.click(); assert.ok(el.classList.contains('open')); assert.equal(tab.getAttribute('aria-expanded'), 'true');
   assert.match(el.textContent, /엔터 키/); assert.match(el.textContent, /추천 서류/);
@@ -638,10 +639,10 @@ test('화면 테마: 다섯 페이지가 themes.css·theme.js를 불러오고, �
   assert.ok(!/어떤 서류가 필요하세요|어떤 서류를 쓸까요/.test(css), 'C·E안에는 큰 제목 문구를 두지 않는다');
   assert.match(css, /\.acts \.btn\.sm[^}]*min-height: 34px[^}]*box-shadow: none/, '목록의 열기·삭제 단추는 작고 부드럽게');
   assert.match(css, /html\[data-theme="d"\] \.navi-ico \{[^}]*navi-icon\.png/, 'D안 왼쪽 위는 나비 아이콘');
-  assert.match(css, /html\[data-theme="d"\] \.nav a \{[^}]*font-size: 18px/, 'D안 왼쪽 메뉴는 본문 글자 크기');
+  assert.match(css, /html\[data-theme="d"\] \.nav a, html\[data-theme="d"\] \.nav-btn \{[^}]*font-size: 18px/, 'D안 왼쪽 메뉴는 본문 글자 크기');
   assert.match(css, /html\[data-theme="d"\] \.head \{[^}]*width: 72px/, 'D안 레일은 아이콘 폭으로 닫혀 있다');
   assert.match(css, /html\[data-theme="d"\] \.head:hover[^{]*\{[^}]*width: 224px/, '마우스를 올리면 메뉴 패널이 펼쳐진다');
-  assert.match(css, /\.nav a::before \{[^}]*mask/, '메뉴는 아이콘으로 표시');
+  assert.match(css, /\.nav a::before, html\[data-theme="d"\] \.nav-btn::before \{[^}]*mask/, '메뉴는 아이콘으로 표시');
   assert.ok(readFileSync(join(ROOT, 'assets/navi-icon.png')).subarray(1, 4).toString() === 'PNG');
   assert.match(css, /\.ask > \.btn\[type="submit"\][^}]*position: absolute; right: 8px/, '초안 작성 단추는 입력 칸 오른쪽 끝의 작은 아이콘');
 });
@@ -710,9 +711,11 @@ test('디자인 D: 엘리베이션 5단계·격자·유리·부유감이 D 아�
   for (const l of d.split('\n')) if (/^[^@\s*\/].*\{/.test(l) && !/^(@keyframes|\})/.test(l) && !/^\s/.test(l)) assert.ok(/^:root\[data-theme="d"\]/.test(l), 'D 밖의 규칙: ' + l.slice(0, 60));
   assert.ok(!/blur\(/.test(d.split('\n').filter((l) => /\.dp-card|\.my-row/.test(l)).join('')), '서류 카드에는 블러를 쓰지 않는다');
 });
-test('우측 탭은 작게(약 10px·여백 9px 5px·모서리 8px), 글꼴은 입력 요소에도 var(--font)', () => {
-  const c = read('assets/law.css'), tab = c.match(/\.promo-tab \{[^}]*\}/)[0];
-  assert.match(tab, /font-size: \.6rem/); assert.match(tab, /padding: 9px 5px/); assert.match(tab, /border-radius: 8px 0 0 8px/);
+test('사용법·특징은 좌측 메뉴 안 단추이고, 글꼴은 입력 요소에도 var(--font)', () => {
+  const c = read('assets/law.css'), t = read('assets/themes.css');
+  assert.ok(!/promo-tab|side-tabs/.test(c + t), '우측 탭 규칙이 남아 있지 않다');
+  assert.match(c, /\.nav-btn \{[^}]*font-size: 17px/); assert.match(t, /html\[data-theme="d"\] \.nav a, html\[data-theme="d"\] \.nav-btn \{[^}]*height: 48px/);
+  assert.match(t, /\.nav-btn#howTab \{ --ico/); assert.match(t, /\.nav-btn#promoTab \{ --ico/);
   assert.match(c, /html, body, button, input, select, textarea \{ font-family: var\(--font\); \}/);
   assert.match(c, /letter-spacing: -\.01em/); assert.match(c, /font-synthesis: none/);
 });

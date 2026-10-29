@@ -39,6 +39,11 @@ p { margin: 0 0 10px; }
 .nav a { padding: 16px 14px; font-size: 17px; font-weight: 500; text-decoration: none; border-bottom: 3px solid transparent; min-height: 44px; }
 .nav a[aria-current="page"] { border-bottom-color: var(--accent); font-weight: 700; }
 .nav a:hover { background: var(--bg); }
+/* 사용법·나비감정의 특징 단추 — 메뉴 링크와 같은 모양(패널은 오른쪽에서 밀려 나온다) */
+.nav-btn { padding: 16px 14px; font: inherit; font-size: 17px; font-weight: 500; color: inherit; background: none; border: 0; border-bottom: 3px solid transparent; min-height: 44px; cursor: pointer; }
+.nav-btn:hover { background: var(--bg); }
+.nav-btn[aria-expanded="true"] { border-bottom-color: var(--accent); font-weight: 700; }
+.nav-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .head-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
 .head-right a.ext { font-size: 15px; color: var(--sub); text-decoration: none; padding: 10px 4px; }
 .head-right a.ext:hover { text-decoration: underline; }
@@ -207,11 +212,6 @@ td .fld, li .fld { width: 100%; }
 .badge.law { background: #e6ecf8; color: var(--navy); }
 
 /* 나비감정의 특징 배너 (홈·서류 목록) */
-.side-tabs { position: fixed; right: 0; top: 28%; z-index: 60; display: flex; flex-direction: column; gap: 12px; }
-.promo-tab { position: static; writing-mode: vertical-rl; padding: 9px 5px; font: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .08em; color: var(--navy); background: var(--blue-bg); border: 1px solid #cfdcf5; border-right: 0; border-radius: 8px 0 0 8px; box-shadow: var(--e3); cursor: pointer; transition: transform .25s ease, opacity .2s, box-shadow .2s var(--ease); }
-.promo-tab:hover { background: #d6e6fb; box-shadow: var(--e4); }
-.promo-tab:focus-visible { outline: 3px solid #ffd43b; outline-offset: 2px; }
-.promo-tab[aria-expanded="true"] { transform: translateX(100%); opacity: 0; pointer-events: none; }
 .promo { position: fixed; top: 0; right: 0; bottom: 0; z-index: 70; width: min(440px, 92vw); overflow-y: auto; padding: 22px 22px 26px; color: #fff; background: var(--navy); box-shadow: -8px 0 28px rgba(0,0,0,.35); transform: translateX(104%); visibility: hidden; transition: transform .3s ease, visibility 0s linear .3s; }
 .promo.open { transform: none; visibility: visible; transition: transform .3s ease; }
 .promo-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
@@ -229,8 +229,8 @@ td .fld, li .fld { width: 100%; }
 .promo button:focus-visible { outline: 3px solid #ffd43b; outline-offset: 2px; }
 .tower-tip { display: block; margin: 8px 0 2px; padding: 10px 12px; font-size: 15.5px; line-height: 1.6; color: #3b3200; background: #fff3a8; border-radius: 4px; box-shadow: 2px 3px 8px rgba(0,0,0,.3); }
 .tower-tip[hidden] { display: none; }
-@media (prefers-reduced-motion: reduce) { .promo, .promo-tab, .tower svg { transition: none; } }
-@media print { .promo, .promo-tab { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .promo, .tower svg { transition: none; } }
+@media print { .promo, .nav-btn { display: none !important; } }
 
 /* 첫 화면은 입력칸만 두고, 나머지는 옆면 패널("이용 안내")에 넣는다 */
 body[data-page="home"] .home-min { min-height: 58vh; display: flex; flex-direction: column; justify-content: center; }
