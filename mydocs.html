@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>내 서류 목록 — 나비감정 Navi Appraisal</title>
+<meta name="description" content="내가 작성한 서류를 시간·명칭·의뢰인 순으로 정렬해 봅니다">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/law.css">
+<link rel="stylesheet" href="assets/themes.css">
+<script src="assets/theme.js"></script>
+</head>
+<body data-page="mydocs">
+<header class="head">
+  <div class="head-in">
+    <a class="navi-ico" href="https://hondi.net/desktop.html" target="_blank" rel="noopener" aria-label="나비 (Navi) — AI 자율 시장 플랫폼" title="나비 (Navi) — AI 자율 시장 플랫폼 (새 창)"></a>
+    <a class="brand" href="./">나비감정 Navi Appraisal</a>
+    <nav class="nav" aria-label="주 메뉴">
+      <a href="./">홈</a>
+      <a href="mydocs.html" aria-current="page">내 서류 목록</a>
+    </nav>
+    <div class="head-right">
+      <a class="head-btn" id="suggestBtn" href="https://hondi.net/pages/suggest.html" target="_blank" rel="noopener" title="기능 개선을 제안합니다 (새 창)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.4.4.6.9.6 1.4V16h6v-.8c0-.5.2-1 .6-1.4A6 6 0 0012 3z"/></svg>제안</a>
+      <a class="head-btn head-gear" id="settingsBtn" href="settings.html" aria-label="설정" title="설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <a class="ext" id="svcLink" href="https://hondi.net/pages/appraiser-simulation.html" target="_blank" rel="noopener" title="감정 시뮬레이션 (새 창)">감정 시뮬레이션</a>
+      <span class="hondi-user-slot" data-hondi-user-slot="light" style="flex:none;display:flex;align-items:center"></span>
+    </div>
+  </div>
+</header>
+<div class="side-tabs">
+  <button type="button" class="promo-tab" id="promoTab" aria-controls="promo" aria-expanded="false">나비감정의 특징</button>
+</div>
+<aside class="promo" id="promo" aria-labelledby="promoH" aria-hidden="true">
+  <div class="promo-head">
+    <h2 id="promoH">나비감정의 특징</h2>
+    <button type="button" class="promo-x" id="promoX" aria-label="나비감정의 특징 닫기"><svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+  </div>
+  <ol class="promo-list">
+    <li>감정평가서부터 의뢰·계약·수수료, 심사·타당성조사 대응, 보상, 사무소·법인 서류까지 감정평가 업무에 쓰는 서류의 초안을 먼저 작성하고, 감정평가사가 고쳐 확정합니다.</li>
+    <li>오픈소스 LLM을 국내 법규와 관행에 맞춰 미세 조정(fine-tuning)한 국산 LLM과 국내 서버를 이용하므로, 데이터의 해외 유출이 없습니다.</li>
+    <li>모든 데이터는 사용자의 데이터 금고에 저장하며, 나비감정 서버는 저장하지 않으므로, 기밀 누출 우려가 없습니다.</li>
+    <li>서류 이름만 입력하면 서식이 바로 펼쳐지고, 엔터 한 번으로 작성이 시작됩니다.</li>
+    <li>작성한 서류가 의뢰기관·법원 등 제출처에서 승인될지, 보정이나 수정 요청이 나올지 관계 법령의 근거와 함께 미리 가늠합니다.</li>
+    <li>의뢰인이 직접 작성하고, 감정평가사가 승인하는 구조이며, 의뢰인은 이름·주소 등을 일일이 입력할 필요가 없습니다.</li>
+    <li>의뢰인이나 사무 직원이 어떤 서류를 작성하다 막히면, AI 비서가 친절히 안내나 설명해 줍니다(<button type="button" class="tower" id="towerBtn" aria-expanded="false" aria-controls="towerTip">관제탑 원칙<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></button>).<span class="tower-tip" id="towerTip" role="note" hidden>비행사가 갑자기 사망하여 조종간을 잡게 된 승객에게, 관제탑이 안전한 착륙을 위해 한 번에 하나씩 지시하는 것과 같습니다.</span></li>
+  </ol>
+  <p class="promo-note">※ 제출 결과 예상은 참고용이며 법적 효력이 없습니다.</p>
+  <button type="button" class="promo-never" id="promoClose" aria-label="나비감정의 특징 자동으로 열지 않기">다시 보지 않기</button>
+</aside>
+<button type="button" class="chat-fab" id="chatFab" aria-label="대화창 열기" aria-expanded="false" aria-controls="chatPanel">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+</button>
+<section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chatH" aria-hidden="true">
+  <div class="chat-panel-h">
+    <h2 id="chatH">궁금한 점은 여기에 말씀하십시오</h2>
+    <button type="button" class="chat-close" id="chatClose" aria-label="대화창 닫기">
+      <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <p class="small chat-help">서류와 절차에 대해 물어보실 수 있습니다. 대화창이 로그인을 요구하면 로그인해 주세요.</p>
+  <iframe id="chatFrame" class="chat-frame" title="서류 보조 AI 대화" allow="microphone; camera"></iframe>
+</section>
+<main class="wrap">
+  <h1>내 서류 목록</h1>
+  <p class="sub">내가 작성한 서류입니다. 이 브라우저에 저장되며, 눌러서 이어서 고치거나 내려받을 수 있습니다.</p>
+  <div class="sortbar" role="group" aria-label="정렬">
+    <span class="small">정렬</span>
+    <button type="button" class="sortbtn" data-sort="time" aria-pressed="true">시간 순 <span class="dir" aria-hidden="true">↓</span></button>
+    <button type="button" class="sortbtn" data-sort="name" aria-pressed="false">명칭 순 <span class="dir" aria-hidden="true"></span></button>
+    <button type="button" class="sortbtn" data-sort="client" aria-pressed="false">의뢰인 순 <span class="dir" aria-hidden="true"></span></button>
+    <span class="small" id="myCount" role="status" aria-live="polite"></span>
+  </div>
+  <div id="myList"></div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <div class="foot-links">
+      <a href="https://hondi.net" target="_blank" rel="noopener">나비웹</a>
+      <a href="https://hondi.net/pages/appraiser-simulation.html" target="_blank" rel="noopener">감정 시뮬레이션</a>
+      <a href="https://github.com/Openhash-Gopang/law" target="_blank" rel="noopener">GitHub · GPL v3.0</a>
+    </div>
+  </div>
+</footer>
+<script src="https://hondi.net/auth/user-badge.js?v=20261028" defer></script>
+<script src="assets/docs-search.js"></script>
+<script src="assets/law.js"></script>
+</body>
+</html>
